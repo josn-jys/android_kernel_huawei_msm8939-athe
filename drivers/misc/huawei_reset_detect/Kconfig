@@ -1,0 +1,7 @@
+
+config HUAWEI_RESET_DETECT
+	tristate "detect abnormal reset"
+	depends on HUAWEI_KERNEL
+	default n
+	help
+	  Say Y here to detect abnormal reset
