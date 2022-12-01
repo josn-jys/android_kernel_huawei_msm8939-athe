@@ -1,0 +1,5 @@
+
+config HUAWEI_GOLDENEYE
+       bool "huawei goldeneye watchpoints feature support"
+       default n
+
