@@ -1407,6 +1407,7 @@ config FUTEX
 	  run glibc-based applications correctly.
 
 config HAVE_FUTEX_CMPXCHG
+	depends on FUTEX
 	bool
 	help
 	  Architectures should select this if futex_atomic_cmpxchg_inatomic()

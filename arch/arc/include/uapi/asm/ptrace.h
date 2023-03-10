@@ -11,7 +11,7 @@
 #ifndef _UAPI__ASM_ARC_PTRACE_H
 #define _UAPI__ASM_ARC_PTRACE_H
 
-
+#define PTRACE_GET_THREAD_AREA	25
 #ifndef __ASSEMBLY__
 /*
  * Userspace ABI: Register state needed by
