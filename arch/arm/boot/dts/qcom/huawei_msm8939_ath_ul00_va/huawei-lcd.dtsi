@@ -5,3 +5,5 @@
  *---------------------------------------------------------------------------*/
 
 
+#include "hw-panel-boe-otm1906c-5p2-1080p-cmd.dtsi"
+#include "hw-panel-jdi-nt35695-5p2-1080p-cmd.dtsi"

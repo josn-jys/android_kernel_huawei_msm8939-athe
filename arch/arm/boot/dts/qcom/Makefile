@@ -27,7 +27,6 @@ dtb-$(CONFIG_ARCH_MSM8916) += 	huawei_ath_al00_va.dtb \
 	huawei_ath_tl00_vd.dtb \
 	huawei_ath_tl00_vd3.0.dtb 
 
-
 dtb-$(CONFIG_ARCH_MSM8974) += msm8974-v1-cdp.dtb \
 	msm8974-v1-fluid.dtb \
 	msm8974-v1-liquid.dtb \
