@@ -1,6 +1,6 @@
 ifeq ($(CONFIG_OF),y)
 
-dtb-$(CONFIG_ARCH_MSM8916) += 	huawei_ath_al00_va.dtb \
+dtb-$(CONFIG_ARCH_MSM8916) +=   huawei_ath_al00_va.dtb \
 	huawei_ath_al00_vb.dtb \
 	huawei_ath_al00_vb3.0.dtb \
 	huawei_ath_al00_vc.dtb \
@@ -26,6 +26,14 @@ dtb-$(CONFIG_ARCH_MSM8916) += 	huawei_ath_al00_va.dtb \
 	huawei_ath_tl00_va.dtb \
 	huawei_ath_tl00_vd.dtb \
 	huawei_ath_tl00_vd3.0.dtb 
+
+dtb-$(CONFIG_ARCH_MSM8916_EFS) +=  huawei_ath_al00_va_efs.dtb \
+	huawei_ath_al00_vb3.0_efs.dtb \
+	huawei_ath_al00_vb_efs.dtb \
+	huawei_ath_al00_vc3.0_efs.dtb \
+	huawei_ath_al00_vc_efs.dtb \
+	huawei_ath_al00_vd3.0_efs.dtb \
+	huawei_ath_al00_vd_efs.dtb 
 
 dtb-$(CONFIG_ARCH_MSM8974) += msm8974-v1-cdp.dtb \
 	msm8974-v1-fluid.dtb \

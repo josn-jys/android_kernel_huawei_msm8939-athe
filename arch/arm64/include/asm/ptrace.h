@@ -85,14 +85,14 @@
 #define compat_sp	regs[13]
 #define compat_lr	regs[14]
 #define compat_sp_hyp	regs[15]
-#define compat_sp_irq	regs[16]
-#define compat_lr_irq	regs[17]
-#define compat_sp_svc	regs[18]
-#define compat_lr_svc	regs[19]
-#define compat_sp_abt	regs[20]
-#define compat_lr_abt	regs[21]
-#define compat_sp_und	regs[22]
-#define compat_lr_und	regs[23]
+#define compat_lr_irq	regs[16]
+#define compat_sp_irq	regs[17]
+#define compat_lr_svc	regs[18]
+#define compat_sp_svc	regs[19]
+#define compat_lr_abt	regs[20]
+#define compat_sp_abt	regs[21]
+#define compat_lr_und	regs[22]
+#define compat_sp_und	regs[23]
 #define compat_r8_fiq	regs[24]
 #define compat_r9_fiq	regs[25]
 #define compat_r10_fiq	regs[26]
@@ -146,13 +146,35 @@ struct pt_regs {
 	(!((regs)->pstate & PSR_F_BIT))
 
 #define user_stack_pointer(regs) \
-	(!compat_user_mode(regs)) ? ((regs)->sp) : ((regs)->compat_sp)
+	(!compat_user_mode(regs) ? (regs)->sp : (regs)->compat_sp)
 
+#define MAX_REG_OFFSET (sizeof(struct user_pt_regs) - sizeof(u64))
+/**
+ * regs_get_register() - get register value from its offset
+ * @regs:	   pt_regs from which register value is gotten
+ * @offset:    offset number of the register.
+ *
+ * regs_get_register returns the value of a register whose offset from @regs.
+ * The @offset is the offset of the register in struct pt_regs.
+ * If @offset is bigger than MAX_REG_OFFSET, this returns 0.
+ */
+static inline u64 regs_get_register(struct pt_regs *regs,
+					      unsigned int offset)
+{
+	if (unlikely(offset > MAX_REG_OFFSET))
+		return 0;
+	return *(u64 *)((u64)regs + offset);
+}
+
+/* Valid only for Kernel mode traps. */
 static inline unsigned long regs_return_value(struct pt_regs *regs)
 {
 	return regs->regs[0];
 }
 
+extern int regs_query_register_offset(const char *name);
+extern unsigned long regs_get_kernel_stack_nth(struct pt_regs *regs,
+					       unsigned int n);
 /*
  * Are the current registers suitable for user mode? (used to maintain
  * security in signal handlers)
@@ -182,9 +204,8 @@ static inline int valid_user_regs(struct user_pt_regs *regs)
 
 	return 0;
 }
-
-#define instruction_pointer(regs)	((unsigned long)(regs)->pc)
-
+#define instruction_pointer(regs)	((regs)->pc)
+#define stack_pointer(regs)		((regs)->sp)
 #ifdef CONFIG_SMP
 extern unsigned long profile_pc(struct pt_regs *regs);
 #else
